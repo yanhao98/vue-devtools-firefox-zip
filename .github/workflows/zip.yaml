@@ -16,6 +16,7 @@ jobs:
           tag=$(jq -r '.devDependencies."vite-plugin-vue-devtools"' package.json | sed 's/[^0-9.]*//g')
           echo "tag: $tag"
           echo "tag=$tag" >> $GITHUB_OUTPUT
+          echo "repository=$GITHUB_REPOSITORY" >> $GITHUB_OUTPUT
   zip:
     needs: tag
     runs-on: ubuntu-latest
@@ -40,6 +41,7 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           files: dist/devtools-firefox@v${{ needs.tag.outputs.tag }}.zip
+          repository: ${{ needs.tag.outputs.repository }}
           tag_name: v${{ needs.tag.outputs.tag }}
           body: |
             - [x] devtools-firefox@v${{ needs.tag.outputs.tag }}.zip
