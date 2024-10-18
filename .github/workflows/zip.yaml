@@ -40,5 +40,6 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           files: dist/devtools-firefox@v${{ needs.tag.outputs.tag }}.zip
+          tag_name: v${{ needs.tag.outputs.tag }}
           body: |
             - [x] devtools-firefox@v${{ needs.tag.outputs.tag }}.zip
