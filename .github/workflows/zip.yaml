@@ -16,7 +16,9 @@ jobs:
           tag=$(jq -r '.devDependencies."vite-plugin-vue-devtools"' package.json | sed 's/[^0-9.]*//g')
           echo "tag: $tag"
           echo "tag=$tag" >> $GITHUB_OUTPUT
-          echo "repository=$GITHUB_REPOSITORY" >> $GITHUB_OUTPUT
+          
+          echo "repository: ${{ github.repository }}"
+          echo "repository=${{ github.repository }}" >> $GITHUB_OUTPUT
   zip:
     needs: tag
     runs-on: ubuntu-latest
