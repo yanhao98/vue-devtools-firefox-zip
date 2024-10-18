@@ -1,0 +1,24 @@
+on:
+  push:
+
+jobs:
+  tag:
+    runs-on: ubuntu-latest
+    outputs:
+      tag: ${{ steps.tag.outputs.tag }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@main
+      - name: Tag
+        id: tag
+        run: echo "tag=$(jq -r '.devDependencies."vite-plugin-vue-devtools"' package.json)" >> $GITHUB_ENV
+  zip:
+    needs: tag
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout # https://github.com/vuejs/devtools-next.git
+        uses: actions/checkout@main
+        with:
+          repository: vuejs/devtools-next
+          ref: v${{ needs.tag.outputs.tag }}
+      - run: ls -al
