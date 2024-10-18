@@ -1,6 +1,7 @@
 on:
   push:
-
+permissions:
+  contents: write
 jobs:
   tag:
     runs-on: ubuntu-latest
@@ -28,11 +29,6 @@ jobs:
         with:
           repository: vuejs/devtools-next
           ref: v${{ needs.tag.outputs.tag }}
-          # pnpm install
-          # pnpm run build:firefox-extension
-          # pnpm run zip
-          # ls dist
-          # mv dist/devtools-firefox.zip dist/devtools-firefox@v0.0.0.zip
       - uses: yanhao98/composite-actions/setup-node-environment@main
       - run: pnpm run build:firefox-extension
       - run: pnpm run zip
