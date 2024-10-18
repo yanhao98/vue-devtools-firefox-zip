@@ -40,7 +40,7 @@ jobs:
       - run: mv dist/devtools-firefox.zip dist/devtools-firefox@v${{ needs.tag.outputs.tag }}.zip
       - run: ls dist
       - name: Release
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v2
         with:
           files: dist/devtools-firefox@v${{ needs.tag.outputs.tag }}.zip
           repository: ${{ needs.tag.outputs.repository }}
