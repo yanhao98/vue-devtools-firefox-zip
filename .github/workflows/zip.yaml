@@ -25,4 +25,20 @@ jobs:
         with:
           repository: vuejs/devtools-next
           ref: v${{ needs.tag.outputs.tag }}
-      - run: ls -al
+          # pnpm install
+          # pnpm run build:firefox-extension
+          # pnpm run zip
+          # ls dist
+          # mv dist/devtools-firefox.zip dist/devtools-firefox@v0.0.0.zip
+      - uses: yanhao98/composite-actions/setup-node-environment@main
+      - run: pnpm run build:firefox-extension
+      - run: pnpm run zip
+      - run: ls dist
+      - run: mv dist/devtools-firefox.zip dist/devtools-firefox@v${{ needs.tag.outputs.tag }}.zip
+      - run: ls dist
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: dist/devtools-firefox@v${{ needs.tag.outputs.tag }}.zip
+          body: |
+            - [x] devtools-firefox@v${{ needs.tag.outputs.tag }}.zip
