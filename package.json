@@ -1,5 +1,5 @@
 {
 	"devDependencies": {
-		"vite-plugin-vue-devtools": "8.1.5"
+		"vite-plugin-vue-devtools": "8.2.1"
 	}
 }
